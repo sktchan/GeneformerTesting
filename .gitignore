@@ -1,4 +1,9 @@
+# anaconda env
 anaconda3/
+
+# takes too long for git to commit to repo
+genecorpus_30M/
+
+# etc.
 __pycache__/
 testing/
-genecorpus_30M/
