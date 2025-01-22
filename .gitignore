@@ -7,3 +7,4 @@ genecorpus_30M/
 # etc.
 __pycache__/
 testing/
+testing_model.py
