@@ -23,7 +23,7 @@ model = Chain(
     BatchNorm(256),
     Dense(256, 64, relu),
     BatchNorm(64),
-    Dense(64, 1, sigmoid), # tried SkipConnection(Dense(input, input=output, relu), +), didn't do much
+    Dense(64, 1, sigmoid),  # tried SkipConnection(Dense(input, input=output, relu), +), didn't do much
 )
 
 # partition
