@@ -92,5 +92,13 @@ def get_ranks(example):
 data_w_target_vectors = data_subsample.map(get_ranks, num_proc=num_proc)
 target_arr = np.transpose(np.array(data_w_target_vectors["target_vector"]))
 
+### export for julia
 np.save("target_arr.npy", target_arr)
 np.save("labels.npy", labels)
+
+### export for evaluation (their models)
+with open('config.py', 'w') as f:
+    f.write(f"target_arr = {target_arr.tolist()}\n")
+    f.write(f"labels = {labels.tolist()}\n")
+    f.write(f"nsplits = {nsplits}\n")
+    f.write(f"subsample_size = {subsample_size}\n")
