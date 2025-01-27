@@ -4,7 +4,7 @@ anaconda3/
 # takes too long for git to commit to repo
 genecorpus_30M/
 
-# etc.
+# testing files, etc.
 __pycache__/
 testing/
 testing_model.py
