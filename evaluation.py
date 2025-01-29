@@ -26,8 +26,8 @@ from sklearn.metrics import roc_curve, auc, confusion_matrix
 from config import target_arr, labels, nsplits, subsample_size
 target_arr = np.array(target_arr)
 labels = np.array(labels)
-labels_pred = pd.read_csv("labels_pred.csv")
-labels_eval = pd.read_csv("labels_eval.csv")
+labels_pred = pd.read_csv("data/labels_pred.csv")
+labels_eval = pd.read_csv("data/labels_eval.csv")
 
 # calculating metrics for new model
 fpr, tpr, thresholds = roc_curve(labels_eval, labels_pred)
@@ -159,4 +159,4 @@ bundled_data += [(roc_auc, roc_auc_sd, fpr, tpr, "Simple FNN", "orange", "solid"
 
 # plot ROC
 plot_ROC(bundled_data, 'Dosage Sensitive vs Insensitive TFs')
-plt.savefig('roc_plot.png')
+plt.savefig('data/roc_plot.png')

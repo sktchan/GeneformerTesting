@@ -8,3 +8,4 @@ genecorpus_30M/
 __pycache__/
 testing/
 testing_model.py
+cross_val/

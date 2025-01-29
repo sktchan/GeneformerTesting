@@ -12,8 +12,8 @@ using PyCall, Flux, Statistics, Random, LinearAlgebra, DataFrames, Plots, CSV
 
 ### giving up and saving stuff from .py file and loading it in manually
 np = pyimport("numpy")
-target_arr_py = np.load("target_arr.npy")
-labels_py = np.load("labels.npy")
+target_arr_py = np.load("data/target_arr.npy")
+labels_py = np.load("data/labels.npy")
 target_arr = Float32.(Array(target_arr_py))
 labels = Float32.(Array(labels_py))
 
@@ -78,12 +78,12 @@ for epoch in 1:n_epochs
 end
 
 # evaluating
-labels_pred = model(targets_eval) .> 0.5  # threshold predictions at 0.5 b/c binary
+labels_pred = model(targets_eval) #.> 0.5  # threshold predictions at 0.5 b/c binary
 
 p1 = plot(1:n_epochs, epoch_losses, label="training loss", xlabel="epoch", ylabel="loss", title="loss across epochs")
 p2 = plot(1:length(grad_norms), grad_norms, label="grad norm", xlabel="steps", ylabel="norm", title="gradient across steps") 
 plot(p1, p2, layout=(1,2))
 
 # export for python
-CSV.write("labels_pred.csv", DataFrame(labels_pred=vec(labels_pred)))
-CSV.write("labels_eval.csv", DataFrame(labels_eval=labels_eval))
+CSV.write("data/labels_pred.csv", DataFrame(labels_pred=vec(labels_pred)))
+CSV.write("data/labels_eval.csv", DataFrame(labels_eval=labels_eval))

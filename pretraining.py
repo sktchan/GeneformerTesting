@@ -93,8 +93,9 @@ data_w_target_vectors = data_subsample.map(get_ranks, num_proc=num_proc)
 target_arr = np.transpose(np.array(data_w_target_vectors["target_vector"]))
 
 ### export for julia
-np.save("target_arr.npy", target_arr)
-np.save("labels.npy", labels)
+np.save("data/target_arr.npy", target_arr)
+np.save("data/labels.npy", labels)
+np.save("data/targets.npy", targets)
 
 ### export for evaluation (their models)
 with open('config.py', 'w') as f:
