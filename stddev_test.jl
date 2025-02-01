@@ -1,8 +1,4 @@
-#= TODO:
-1. take target_arr, labels
-2. calculate std.dev b/n target_arr?
-3. see if std.dev == labels (or similar?)
-=#
+# testing the standard deviation of gene expression ranks - to validate whether gene dosage sensitivity is predicted by std dev
 
 using PyCall, Statistics, Random, LinearAlgebra, DataFrames, Plots
 
@@ -15,22 +11,25 @@ target_arr = Float32.(Array(target_arr_py))
 labels = Float32.(Array(labels_py))
 targets = Float32.(Array(targets_py))
 
-std_devs = Float64[]
+len = [length(filter(x -> x > 0, row)) for row in eachrow(target_arr)]
+stds = [std(filter(x -> x > 0, row)) for row in eachrow(target_arr)]
+o = .!isnan.(stds)
 
-for gene in targets
-    positions = Int[]
-    for column in 1:10000
-        position = findall(x -> x == gene, target_arr[:, column])
-        append!(positions, position)
-    end
-    if !isempty(positions)
-        push!(std_devs, std(positions))
-    else
-        push!(std_devs, NaN)
-    end
-end
+o_1 = labels .== 1.0
+o_0 = labels .== 0.0
+
+r = roc(len[o_1], len[o_0])
+auc(r)
+using Plots
+Plots.plot(r)
+
+CairoMakie.boxplot(labels[o], stds[o])
+CairoMakie.boxplot(labels, len / 100)
+
+# std_devs = std(target_arr, dims=2)
+# mat = [labels std_devs]
+
+roc
 
 println(targets)
 println(std_devs)
-
-# issue: intersect(targets, target_arr) only returns 28 values -- so there are only 28 tfs being checked out of the 244??
